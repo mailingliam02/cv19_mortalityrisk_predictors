@@ -9,4 +9,5 @@ Table containing performance metrics for each of the different classifiers:
 
 
 Plot of recall vs precision for each of the five trials of the classifier:
+
 ![precvsrecall1](https://user-images.githubusercontent.com/71287923/120115714-4a856780-c185-11eb-85f2-562366255b4a.png)
