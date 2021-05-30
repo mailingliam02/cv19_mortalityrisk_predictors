@@ -4,8 +4,11 @@ This is a repository containing the python files used in the "Using Machine Lear
 
 ## How to Use
 Download the data from https://github.com/beoutbreakprepared/nCoV2019
+
 Ensure the appropriate dependencies are installed (see docs).
+
 Place it in the same directory as the source and test files. Execute the script in the build directory.
+
 Review results, and adjust hyperparameters as necessary (see paper for exact configurations used). 
 
 ## Results
