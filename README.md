@@ -4,6 +4,9 @@ This is a repository containing the python files used in the "Using Machine Lear
 ## Results
 The Random Forest was found to be the best predictor with an accuracy of 95%, although it is noted that none of the models were particularly effective at predicting the death of a patient. This is attributed to the sampling technique used. See the paper for details about implementation choices and results.
 Table containing performance metrics for each of the different classifiers:
+
 ![tablef](https://user-images.githubusercontent.com/71287923/120115746-6983f980-c185-11eb-9aa9-4ecc8ac60b2e.PNG)
-Plot of recall vs precision for each of the five trials of the classifier"
+
+
+Plot of recall vs precision for each of the five trials of the classifier:
 ![precvsrecall1](https://user-images.githubusercontent.com/71287923/120115714-4a856780-c185-11eb-85f2-562366255b4a.png)
