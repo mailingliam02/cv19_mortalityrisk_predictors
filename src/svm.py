@@ -18,34 +18,44 @@ import pandas as pd
 from imblearn.combine import SMOTEENN
 import pickle
 #Set
-path = "C:\\PythonScripts\\Cv19\\cleansed_data1.csv"
-grid_search = False
+path = "..\\build\\cleandata.csv"
+grid_search = True
+def train_and_save(path, grid_search):
+    data = pd.read_csv(path)
+    y = data.pop('outcome')
+    x_train, x_test, y_train, y_test = model_selection.train_test_split(data, y, test_size=0.33, random_state = 0)
+    x_train, y_train =  SMOTEENN().fit_resample(x_train, y_train)
+    if grid_search:
+        C_space = np.logspace(-3, 3, 5)
+        gamma_space = np.logspace(-3, 3, 5)
+        search_field = dict(gamma=gamma_space, C=C_space)
+        model_svm = svm.SVC(C = 1000, gamma = 1000)
+        model = model_selection.GridSearchCV(model_svm, search_field, verbose = 2)
+        model = model_svm.fit(x_train,y_train)
+        list1 = []
+        list1.append(metrics.accuracy_score(y_test,model.predict(x_test)))
+        list1.append(metrics.precision_score(y_test,model.predict(x_test)))
+        list1.append(metrics.recall_score(y_test,model.predict(x_test)))
+        list1.append(metrics.roc_auc_score(y_test,model.predict(x_test)))
+        with open('holder.txt','w') as f:
+            f.write(str(list1))
+        ##Uncomment to see the parameters which achieved the best accuracy
+        # print((model.best_params_, model.best_score_))
+    else:
+        model_svm = svm.SVC(C = 1000, gamma = 1000)
+        model = model_svm.fit(x_train,y_train)
+        list1 = []
+        list1.append(metrics.accuracy_score(y_test,model.predict(x_test)))
+        list1.append(metrics.precision_score(y_test,model.predict(x_test)))
+        list1.append(metrics.recall_score(y_test,model.predict(x_test)))
+        list1.append(metrics.roc_auc_score(y_test,model.predict(x_test)))
+        print(list1)  
+    file_model = "cv19_svm.pkl"
+    with open(file_model, 'wb') as file:
+        pickle.dump(model, file)
+    return
 
-data = pd.read_csv(path)
-y = data.pop('outcome')
-x_train, x_test, y_train, y_test = model_selection.train_test_split(data, y, test_size=0.33, random_state = 0)
-x_train, y_train =  SMOTEENN().fit_resample(x_train, y_train)
-if grid_search:
-    C_space = np.logspace(-3, 3, 5)
-    gamma_space = np.logspace(-3, 3, 5)
-    search_field = dict(gamma=gamma_space, C=C_space)
-    model_svm = svm.SVC(C = 1000, gamma = 1000)
-    model = model_selection.GridSearchCV(model_svm, search_field, verbose = 2)
-    model = model_svm.fit(x_train,y_train)
-    print((model.best_params_, model.best_score_))
-else:
-    model_svm = svm.SVC(C = 1000, gamma = 1000)
-    model = model_selection.GridSearchCV(model_svm, search_field, verbose = 2)
-    model = model_svm.fit(x_train,y_train)
-    list1 = []
-    list1.append(metrics.accuracy_score(y_test,model.predict(x_test)))
-    list1.append(metrics.precision_score(y_test,model.predict(x_test)))
-    list1.append(metrics.recall_score(y_test,model.predict(x_test)))
-    list1.append(metrics.roc_auc_score(y_test,model.predict(x_test)))
-    print(list1)
-    
-file_model = "cv19_svm.pkl"
-with open(file_model, 'wb') as file:
-    pickle.dump(model, file)
+train_and_save(path,grid_search)
+
 
 
