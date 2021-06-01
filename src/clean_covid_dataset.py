@@ -83,7 +83,7 @@ class Dataset:
                     if len(x) >10:
                         x = x[:10]
                 return x
-            data_mc.loc[:,"date_onset_symptoms_cleaned"] = data_mc.loc[:,"date_onset_symptoms"].apply(typo_fixer) 
+            data_mc.loc[:,"date_onset_symptoms"] = data_mc.loc[:,"date_onset_symptoms"].apply(typo_fixer) 
         
         data_mc.loc[:,column+"_d"] = pd.to_datetime(data_mc.loc[:,column], format = "%d.%m.%Y")
         hold_data = data_mc.assign(hold_delta = lambda x: x.loc[:,column+"_d"]-datetime.datetime(2019, 1, 1))
@@ -196,13 +196,13 @@ class Dataset:
                         sym_list[i] = 'asymptomatic'
                     elif sym_list[i] == 'acute kidney injury':	
                         sym_list[i] = 'acute renal failure'
-                    elif sym_list[i] == 'heart failure':	
+                    elif sym_list[i] == 'heart failure' or sym_list[i] == "cardiopulmonary arrest":	
                         sym_list[i] = 'myocardial infarction'
-                    elif sym_list[i] == 'congestive heart failure':	
-                        sym_list[i] = 'heart failure'
+                    elif sym_list[i] == 'congestive heart failure' or sym_list[i] == "acute coronary syndrome":	
+                        sym_list[i] = 'myocardial infarction'
                     elif sym_list[i] == "dyspnea" or sym_list[i] == "difficulty breathing" or sym_list[i] == "respiratory symptoms":
                         sym_list[i] = "dsypnea"
-                    elif sym_list[i] == "acute respiratory distress":
+                    elif sym_list[i] == "acute respiratory distress" or sym_list[i] == "acute respiratory disease syndrome":
                         sym_list[i] = "acute respiratory distress syndrome" 
                     elif sym_list[i] == "myalgia" or sym_list[i] == "myalgias" or sym_list[i] == "mialgia":
                         sym_list[i] = "muscular soreness"
@@ -215,6 +215,8 @@ class Dataset:
                     elif sym_list[i] == "chest discomfort":
                         sym_list[i] = "chest distress"
                     elif sym_list[i] == "multiple electrolyte imbalance": #Not really what this means...
+                        sym_list[i] = "asymptomatic"
+                    elif sym_list[i] == "arrhythmia" or sym_list[i] == "cardiac arrhythmia" or sym_list[i] == "gastritis" or sym_list[i] == "significant clinical suspicion": #Will not be considered symptoms of Covid 19
                         sym_list[i] = "asymptomatic"
                         
                 new_x = ""
@@ -268,9 +270,15 @@ class Dataset:
         
         #Encode Symptoms
         data_mc.loc[:,"symptoms"] = data_mc.loc[:,"symptoms"].apply(symptoms_standardize) 
+        #Remove outlier symptoms
         data_mc.loc[data_mc['symptoms'] == 'torpid evolution with respiratory distress and severe bronchopneumonia','symptoms'] = "acute respiratory disease, pneumonia"
         data_mc.loc[data_mc['symptoms'] == 'obnubilation','symptoms'] = np.nan
         data_mc.loc[data_mc['symptoms'] == 'primary myelofibrosis','symptoms'] = np.nan
+        data_mc.loc[data_mc['symptoms'] == 'chills, conjunctivitis, cough, fever','symptoms'] = "chills, cough, fever"     
+        data_mc.loc[data_mc['symptoms'] == 'anorexia, fatigue','symptoms'] = "fatigue"
+        data_mc.loc[data_mc['symptoms'] == 'eye irritation, fever','symptoms'] = "fever"
+        data_mc.loc[data_mc['symptoms'] == 'obnubilation, fatigue','symptoms'] = "fatigue"
+        data_mc.loc[data_mc['symptoms'] == 'cough, colds, dysphagia','symptoms'] = "cough, colds"
         data_mc.loc[:,"symptoms"] = data_mc.loc[:,"symptoms"].apply(sym_encode) 
         return data_mc
     
@@ -533,3 +541,6 @@ class Dataset:
         data_mc = self.__normalize(data_mc)
         data_mc.to_csv(self.save_path, index=False)
         return data_mc
+
+dataset_cleaner = Dataset(path, save_path)
+dataset_cleaner.clean_and_save()
