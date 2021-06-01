@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 import sys
 
-path = "..\\data.csv"
+path = "..\\latestdata.csv"
 save_path = "..\\build\\cleandata.csv"
 
 class Dataset:
