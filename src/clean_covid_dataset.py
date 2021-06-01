@@ -14,9 +14,8 @@ import numpy as np
 import pandas as pd
 import sys
 
-input_arguments = str(sys.argv)
-path = input_arguments[1]
-save_path = input_arguments[2]
+path = "..\\data.csv"
+save_path = "..\\build\\cleandata.csv"
 
 class Dataset:
     def __init__(self, path, save_path):

@@ -1,6 +1,3 @@
-@py ..\src\clean_covid_dataset.py
-@py ..\src\svm.py
-@py ..\src\rf.py
-@py ..\src\nn.py
-@py ..\src\score.py
+@echo off
+python ..\src\clean_covid_dataset.py && python ..\src\svm.py && python ..\src\rf.py && python ..\src\nn.py && python ..\src\score.py
 @pause
