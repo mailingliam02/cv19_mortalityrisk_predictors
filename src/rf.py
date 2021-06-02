@@ -21,7 +21,7 @@ from imblearn.combine import SMOTEENN
 #To Set:
 path = "..\\build\\cleandata.csv"
 grid_search_bool = True
-
+print("Training RF")
 def train_and_save_rf(path, grid_search_bool):
     data = pd.read_csv(path)
     y = data.pop('outcome')

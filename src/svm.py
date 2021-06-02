@@ -20,6 +20,7 @@ import pickle
 #Set
 path = "..\\build\\cleandata.csv"
 grid_search = True
+print("Training SVM")
 def train_and_save(path, grid_search):
     data = pd.read_csv(path)
     y = data.pop('outcome')

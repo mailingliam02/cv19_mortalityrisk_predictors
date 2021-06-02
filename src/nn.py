@@ -25,7 +25,7 @@ from imblearn.combine import SMOTEENN
 learning_rate_initial = 0.01
 #Can add more lists of neuron lengths and sizes as necessary
 list_of_layers = [[100,70,50,20]]
-
+print("Training Neural Network")
 def train_and_save_nn(learning_rate_initial, list_of_layers):
     path = "..\\build\\cleandata.csv"
     data = pd.read_csv(path)

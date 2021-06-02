@@ -12,6 +12,7 @@ import pandas as pd
 import pickle
 
 path = "..\\build\\cleandata.csv"
+print("Scoring")
 def score(path):
     data = pd.read_csv(path)
     y = data.pop('outcome')

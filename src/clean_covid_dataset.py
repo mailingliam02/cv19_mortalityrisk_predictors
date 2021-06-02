@@ -544,3 +544,4 @@ class Dataset:
 
 dataset_cleaner = Dataset(path, save_path)
 dataset_cleaner.clean_and_save()
+print("Dataset Cleaned")
