@@ -693,6 +693,14 @@ class TestDataset(unittest.TestCase):
         else:
             raise Exception("File has not been saved")
             self.assertEqual(0,1)
+            
+    def test_correct_file_convention(self):
+        file_exist = os.path.isfile("..\\latestdata.csv")
+        if file_exist:
+            self.assertEqual(1,1)
+        else:
+            raise Exception("latestdata.csv is missing/not in the correct directory")
+            self.assertEqual(0,1)
     
         
         
