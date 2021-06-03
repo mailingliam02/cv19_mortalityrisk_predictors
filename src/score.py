@@ -11,8 +11,7 @@ from tensorflow import keras
 import pandas as pd
 import pickle
 
-path = "..\\build\\cleandata.csv"
-print("Scoring")
+path = "build\\cleandata.csv"
 def score(path):
     data = pd.read_csv(path)
     y = data.pop('outcome')

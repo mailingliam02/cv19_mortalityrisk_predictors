@@ -25,9 +25,8 @@ from imblearn.combine import SMOTEENN
 learning_rate_initial = 0.01
 #Can add more lists of neuron lengths and sizes as necessary
 list_of_layers = [[100,70,50,20]]
-print("Training Neural Network")
 def train_and_save_nn(learning_rate_initial, list_of_layers):
-    path = "..\\build\\cleandata.csv"
+    path = "build\\cleandata.csv"
     data = pd.read_csv(path)
     y = data.pop('outcome')
     x_train, x_test, y_train, y_test = model_selection.train_test_split(data, y, test_size=0.15, random_state = 0) #Changed from 0.33

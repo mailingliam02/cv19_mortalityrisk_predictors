@@ -12,10 +12,9 @@ import datetime
 import math
 import numpy as np
 import pandas as pd
-import sys
 
-path = "..\\latestdata.csv"
-save_path = "..\\build\\cleandata.csv"
+path = "latestdata.csv"
+save_path = "build\\cleandata.csv"
 
 class Dataset:
     def __init__(self, path, save_path):
@@ -544,4 +543,3 @@ class Dataset:
 
 dataset_cleaner = Dataset(path, save_path)
 dataset_cleaner.clean_and_save()
-print("Dataset Cleaned")
