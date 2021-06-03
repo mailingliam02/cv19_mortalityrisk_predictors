@@ -18,6 +18,7 @@ cd build
 main.bat
 ```
 Review the results txt which is generated in the build directory, and adjust hyperparameters as necessary (see paper for exact configurations used). 
+Note that the execution of the above script can be quite lengthy due to the large range of the Grid Searches employed. To reduce the length of the script, adjust the size of the gridsearch in svm.py and rf.py in src.
 
 ## Results
 The Random Forest was found to be the best predictor with an accuracy of 95%, although it is noted that none of the models were particularly effective at predicting the death of a patient. This is attributed to the sampling technique used. See the paper for details about implementation choices and results.
